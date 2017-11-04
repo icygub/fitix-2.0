@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fixit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="483.098" Width="789.225">
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Set-Fixit" HorizontalAlignment="Left" Width="134"/>
+                    <MenuItem Header="_Set-Audit" HorizontalAlignment="Left" Width="134"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <Label Content="TN" Margin="121,59,615,359" FontSize="16"/>
+        <TextBox TextWrapping="Wrap" IsReadOnly="True" Margin="20,95,503,327"/>
+        <Button Content="Change TN" Margin="103,140,598,283" />
+
+        <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="331,59,417,364"/>
+        <DataGrid HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,400,49" IsReadOnly="True">
+            <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False"/>
+        </DataGrid>
+        <Label Width="Auto" Height="Auto" Content="New" FontSize="16" Margin="419,59,322,364" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+
+        <DataGrid HeadersVisibility="None" AutoGenerateColumns="False" Margin="399,95,305,49">
+            <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False"/>
+        </DataGrid>
+
+        <TextBox IsReadOnly="True" Height="23" TextWrapping="Wrap" Margin="498,96,235,335"/>
+
+        <Button Content="Refresh Old" Margin="200,225,503,200" />
+        <Button Content="Reset New" Margin="498,225,208,200" />
+        <Button Content="Apply Fixits" Margin="285,415,400,10" />
+        <Button Content="Cancel" Margin="399,415,285,10" />
+
+
+
     </Grid>
 </Window>
+ 
