@@ -35,6 +35,8 @@ namespace Fixit {
         public MainWindow() {
             InitializeComponent();
             LoadFiles(config.AppSettings.Settings["FixItPath"].Value);
+            BrushConverter converter = new BrushConverter();
+            PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -98,7 +100,14 @@ namespace Fixit {
         {
             PrefixBox.IsReadOnly = !PrefixBox.IsReadOnly;
             PrefixBox.IsHitTestVisible = !PrefixBox.IsHitTestVisible;
-
+            if(PrefixBox.IsReadOnly) {
+                BrushConverter converter = new BrushConverter();
+                PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
+            }
+            else {
+                PrefixBox.Background = Brushes.White;
+            }
+            
         }
 
         private void ResetNewButton_Click(object sender, RoutedEventArgs e)
