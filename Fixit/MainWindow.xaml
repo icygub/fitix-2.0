@@ -8,35 +8,48 @@
         ResizeMode="NoResize"
         Title="MainWindow" Height="483.098" Width="789.225">
     <Grid>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Set-Fixit" HorizontalAlignment="Left" Width="134"/>
-                    <MenuItem Header="_Set-Audit" HorizontalAlignment="Left" Width="134"/>
+                <MenuItem x:Name="Close" Header="_File">
+                    <MenuItem Header="_Set-Fixit" HorizontalAlignment="Left" Width="134" Click="MenuItem_Click"/>
+                    <MenuItem Header="_Set-Audit" HorizontalAlignment="Left" Width="134" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="_Close" HorizontalAlignment="Left" Width="134" Click="MenuItem_Click_2" />
                 </MenuItem>
             </Menu>
         </DockPanel>
 
         <Label Content="TN" Margin="121,59,615,359" FontSize="16"/>
-        <TextBox TextWrapping="Wrap" IsReadOnly="True" Margin="20,95,503,327"/>
-        <Button Content="Change TN" Margin="103,140,598,283" />
+        <TextBox x:Name="PrefixBox" TextWrapping="Wrap" IsReadOnly="True" Margin="20,95,503,327" IsHitTestVisible="False"/>
+        <Button x:Name="ChangeTN" Content="Change TN" Margin="103,140,598,283" Click="ChangeTN_Click" />
 
-        <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="331,59,417,364"/>
-        <DataGrid HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,400,49" IsReadOnly="True">
-            <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False"/>
+        <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="304,36,381,364" Height="54" Width="98"/>
+        <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,381,49" IsReadOnly="True" ItemsSource="{Binding FixItObj.OldNames}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
         </DataGrid>
-        <Label Width="Auto" Height="Auto" Content="New" FontSize="16" Margin="419,59,322,364" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label Width="99" Height="59" Content="New" FontSize="16" Margin="419,36,265,359" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
 
-        <DataGrid HeadersVisibility="None" AutoGenerateColumns="False" Margin="399,95,305,49">
-            <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False"/>
+        <DataGrid x:Name="NewNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" ItemsSource="{Binding FixItObj.NewNames}">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NotifyOnTargetUpdated=True}"/>
+            </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox IsReadOnly="True" Height="23" TextWrapping="Wrap" Margin="498,96,235,335"/>
+        <TextBox x:Name="ExtensionBox" IsReadOnly="True" TextWrapping="Wrap" Margin="603,95,130,327" IsHitTestVisible="false" >
+            <TextBox.Background>
+                <ImageBrush/>
+            </TextBox.Background>
+        </TextBox>
 
-        <Button Content="Refresh Old" Margin="200,225,503,200" />
-        <Button Content="Reset New" Margin="498,225,208,200" />
-        <Button Content="Apply Fixits" Margin="285,415,400,10" />
-        <Button Content="Cancel" Margin="399,415,285,10" />
+        <Button Content="Refresh Old" Margin="200,225,503,200" Click="Button_Click" />
+        <Button x:Name="ResetNewButton" Content="Reset New" Margin="587,225,119,200" Click="ResetNewButton_Click" />
+        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" />
+        <Button x:Name="Cancel" Content="Cancel" Margin="419,415,265,10" />
 
 
 
