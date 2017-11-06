@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,27 @@ namespace Fixit
 {
     class Renamer
     {
+        public static void RenameFile(FixFile myFile)
+        {
+            System.Configuration.Configuration config =
+                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            string auditPath = config.AppSettings.Settings["AuditPath"].Value;
+            string oldFileName;
+            string newFileName;
+
+
+
+            foreach (var FileName in myFile.MyFiles)
+            {
+                oldFileName = myFile.Prefix + "_" + FileName.OldName + myFile.Extension;
+                newFileName = myFile.Prefix + "_" + FileName.NewName + myFile.Extension;
+
+                File.Copy(myFile.OldPath + "\\" + oldFileName, myFile.NewPath + "\\" + newFileName);
+                File.Delete(myFile.OldPath + "\\" + oldFileName);
+            }
+
+        }
+
 
         public static void RenameFile(string OldDirectory, string NewDirectory, List<FixFile> Files)
         {

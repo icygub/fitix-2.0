@@ -27,13 +27,16 @@ namespace Fixit {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        System.Configuration.Configuration config =
+        static System.Configuration.Configuration config =
             ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        FixFile FixItObj = new FixFile();
+        string oldPath = config.AppSettings.Settings["FixItPath"].Value;
+        string newPath = config.AppSettings.Settings["AuditPath"].Value;
 
 
         public MainWindow() {
             InitializeComponent();
-            LoadFiles(config.AppSettings.Settings["FixItPath"].Value);
+            LoadFiles(oldPath, newPath);
             BrushConverter converter = new BrushConverter();
             PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
         }
@@ -47,10 +50,10 @@ namespace Fixit {
             fbd.Description = "Select Path:";
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                config.AppSettings.Settings["FixItPath"].Value = fbd.SelectedPath;
+                oldPath = fbd.SelectedPath;
 
                 config.Save(ConfigurationSaveMode.Modified);
-                LoadFiles(fbd.SelectedPath);
+                LoadFiles(oldPath, newPath);
 
             }
         }
@@ -64,15 +67,15 @@ namespace Fixit {
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
-                config.AppSettings.Settings["AuditPath"].Value = fbd.SelectedPath;
+                newPath = fbd.SelectedPath;
 
                 config.Save(ConfigurationSaveMode.Modified);
-                LoadFiles(fbd.SelectedPath);
+                LoadFiles(oldPath, newPath);
             }
         }
 
 
-        private void LoadFiles(string path)
+        private void LoadFiles(string oldPath, string newPath)
         {
 
             /*
@@ -81,7 +84,7 @@ namespace Fixit {
              * https://stackoverflow.com/questions/163162/can-you-call-directory-getfiles-with-multiple-filters
              * 
              */
-            var FixItObj = new FixFile(Directory.GetFiles(path), path);
+            FixItObj = new FixFile(Directory.GetFiles(oldPath), oldPath, newPath);
             ExtensionBox.Text = FixItObj.Extension;
             PrefixBox.Text = FixItObj.Prefix;
             CreateTable(FixItObj);
@@ -111,17 +114,22 @@ namespace Fixit {
 
         private void ResetNewButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadFiles(config.AppSettings.Settings["FixItPath"].Value);
+            LoadFiles(oldPath, newPath);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoadFiles(config.AppSettings.Settings["FixItPath"].Value);
+            LoadFiles(oldPath, newPath);
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void ApplyFix_Click(object sender, RoutedEventArgs e)
+        {
+            Renamer.RenameFile(FixItObj);
         }
     }
 }

@@ -48,7 +48,7 @@
 
         <Button Content="Refresh Old" Margin="200,225,503,200" Click="Button_Click" />
         <Button x:Name="ResetNewButton" Content="Reset New" Margin="587,225,119,200" Click="ResetNewButton_Click" />
-        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" />
+        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" Click="ApplyFix_Click" />
         <Button x:Name="Cancel" Content="Cancel" Margin="419,415,265,10" />
 
 

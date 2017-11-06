@@ -9,14 +9,16 @@ namespace Fixit
 {
     class FixFile
     {
-        public string MyPath { get; set; }
-        public string Extension { get; set; }
-        public string Prefix { get; set; }
-       // public List<String> _OldNames = new List<string>();
-       // public List<String> _NewNames = new List<string>();
-        public List<Files> MyFiles = new List<Files>();
+        public string OldPath { get; set; }
+        public string NewPath { get; set; }
 
-        // Note: fix to case to conform with .NET naming conventions
+        public string Extension { get; set; }
+
+        public string Prefix { get; set; }
+
+        // public List<String> _OldNames = new List<string>();
+        // public List<String> _NewNames = new List<string>();
+        public List<Files> MyFiles = new List<Files>();
         //public List<string> OldNames { get { return _OldNames; } }
         //public List<string> NewNames { get { return _NewNames; } }
 
@@ -24,7 +26,7 @@ namespace Fixit
         {
             
         }
-        public FixFile(string[] filesList, string myPath)
+        public FixFile(string[] filesList, string oldPath, string newPath)
         {
             //MyFiles = new List<Files>();
             foreach (string file in filesList)
@@ -35,7 +37,8 @@ namespace Fixit
             }
             Prefix = GetPrefix(filesList.Last());
             Extension = GetExtension(filesList.Last());
-            MyPath = myPath;
+            OldPath = oldPath;
+            NewPath = newPath;
 
         }
         public static void ResetNew(FixFile myFile)
