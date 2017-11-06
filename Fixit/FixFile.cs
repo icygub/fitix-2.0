@@ -12,11 +12,13 @@ namespace Fixit
         public string MyPath { get; set; }
         public string Extension { get; set; }
         public string Prefix { get; set; }
-        public List<String> _OldNames = new List<string>();
-        public List<String> _NewNames = new List<string>();
+       // public List<String> _OldNames = new List<string>();
+       // public List<String> _NewNames = new List<string>();
+        public List<Files> MyFiles = new List<Files>();
+
         // Note: fix to case to conform with .NET naming conventions
-        public IList<string> OldNames { get { return _OldNames; } }
-        public IList<string> NewNames { get { return _NewNames; } }
+        //public List<string> OldNames { get { return _OldNames; } }
+        //public List<string> NewNames { get { return _NewNames; } }
 
         public FixFile()
         {
@@ -27,20 +29,21 @@ namespace Fixit
             //MyFiles = new List<Files>();
             foreach (string file in filesList)
             {
-                //MyFiles.Add(new Files(JustLast(Path.GetFileName(file)), JustLast(Path.GetFileName(file))));
-                OldNames.Add(JustLast(file));
-                NewNames.Add(JustLast(file));
+                MyFiles.Add(new Files(JustLast(file), JustLast(file)));
+                //OldNames.Add(JustLast(file));
+                //NewNames.Add(JustLast(file));
             }
             Prefix = GetPrefix(filesList.Last());
             Extension = GetExtension(filesList.Last());
             MyPath = myPath;
 
         }
-        public void ResetNew(FixFile myFile)
+        public static void ResetNew(FixFile myFile)
         {
-            for (int i = 0; i < myFile.NewNames.Count; i++)
+            for (int i = 0; i < myFile.MyFiles.Count; i++)
             {
-                myFile.NewNames[i] = myFile.OldNames[i];
+                //myFile.NewNames[i] = myFile.OldNames[i];
+                myFile.MyFiles[i].NewName = myFile.MyFiles[i].OldName;
             }
 
         }
@@ -93,8 +96,20 @@ namespace Fixit
 
     public class Files
     {
-        public string OldName;
-        public string NewName;
+        private string _oldName;
+        private string _newName;
+
+        public string OldName
+        {
+            get { return _oldName; }
+            set { _oldName = value; }
+        }
+
+        public string NewName
+        {
+            get { return _newName; }
+            set { _newName = value; }
+        }
 
         public Files(string oldfile, string newfile)
         {

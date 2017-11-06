@@ -26,17 +26,17 @@
         <Button x:Name="ChangeTN" Content="Change TN" Margin="103,140,598,283" Click="ChangeTN_Click" />
 
         <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="304,36,381,364" Height="54" Width="98"/>
-        <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,381,49" IsReadOnly="True" ItemsSource="{Binding FixItObj.OldNames}">
+        <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,381,49" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding}">
+                <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding OldName}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Width="99" Height="59" Content="New" FontSize="16" Margin="419,36,265,359" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
 
-        <DataGrid x:Name="NewNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" ItemsSource="{Binding FixItObj.NewNames}">
+        <DataGrid x:Name="NewNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NotifyOnTargetUpdated=True}"/>
+                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName}"/>
             </DataGrid.Columns>
         </DataGrid>
 

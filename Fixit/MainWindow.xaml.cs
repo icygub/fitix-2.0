@@ -31,7 +31,6 @@ namespace Fixit {
             ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
 
-        private FixFile FixItObj = new FixFile();
         public MainWindow() {
             InitializeComponent();
             LoadFiles(config.AppSettings.Settings["FixItPath"].Value);
@@ -91,8 +90,8 @@ namespace Fixit {
 
        private void CreateTable(FixFile FixItObj)
        {
-           OldNameListTable.ItemsSource = FixItObj.OldNames;
-           NewNameListTable.ItemsSource = FixItObj.NewNames;
+           OldNameListTable.ItemsSource = FixItObj.MyFiles;
+           NewNameListTable.ItemsSource = FixItObj.MyFiles;
        }
 
 
