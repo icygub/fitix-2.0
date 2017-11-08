@@ -155,7 +155,7 @@ namespace Fixit {
                     currentChar++;
                     FixItObj.MyFiles[currentCellIndex + 1].NewName = currentCellValue.Substring(0,currentCellValue.Length - 1) + currentChar.ToString();
 
-                    //NewNameListTable.Items.Refresh();
+                    NewNameListTable.Items.Refresh();
                     //NewNameListTable.Focus();
 
                     var uiElement = e.OriginalSource as UIElement;
