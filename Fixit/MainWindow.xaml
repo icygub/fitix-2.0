@@ -40,9 +40,9 @@
         </DataGrid>
         <Label Width="99" Height="59" Content="New" FontSize="16" Margin="419,36,265,359" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
 
-        <DataGrid x:Name="NewNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" Background="White">
+        <DataGrid x:Name="NewNameListTable" PreviewKeyDown="NewNameListTable_PreviewKeyDown" SelectionChanged="NewNameListTable_SelectionChanged" HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" Background="White">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName}"/>
+                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 

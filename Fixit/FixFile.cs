@@ -158,15 +158,12 @@ namespace Fixit
             {
                 _newName = value;
                 int myCount = 0;
-                foreach (Match m in Regex.Matches(_newName, @"[a-zA-Z]"))
-                {
+                foreach (Match m in Regex.Matches(_newName, @"[a-zA-Z]")) {
                     myCount += 1;
                 }
                 myCount += OldName.Length;
-                if (NewName.Length < myCount)
-                {
-                    for (int i = 0; NewName.Length < myCount; i++)
-                    {
+                if (NewName.Length < myCount) {
+                    for (int i = 0; NewName.Length < myCount; i++) {
                         NewName = "0" + NewName;
                     }
                 }
