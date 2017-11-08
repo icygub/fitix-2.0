@@ -42,7 +42,8 @@ namespace Fixit {
         public MainWindow() {
             InitializeComponent();
             BrushConverter converter = new BrushConverter();
-            PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0"); 
+            PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
+            
         }
 
         private void SetFixItItem_Click(object sender, RoutedEventArgs e)
@@ -133,8 +134,16 @@ namespace Fixit {
         {
             try
             {
-                Renamer.RenameFile(FixItObj);
-                MessageBox.Show("Files renamed successfully.", "Confirmation", MessageBoxButton.OK);
+                if (PrefixBox.IsReadOnly)
+                {
+                    Renamer.RenameFile(FixItObj);
+                    MessageBox.Show("Files renamed successfully.", "Confirmation", MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Please, close the TN.", "Warning.", MessageBoxButton.OK);
+                }
+
             }
             catch
             {
