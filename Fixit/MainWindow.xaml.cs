@@ -150,17 +150,32 @@ namespace Fixit {
                 if (! int.TryParse(currentCellValue[currentCellValue.Length - 1].ToString(), out int output)) { //if last is not an int
                     //MessageBox.Show("we are here");
                     FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
-
                     currentChar = currentCellValue[currentCellValue.Length - 1];
-                    currentChar++;
-                    FixItObj.MyFiles[currentCellIndex + 1].NewName = currentCellValue.Substring(0,currentCellValue.Length - 1) + currentChar.ToString();
+                    for (int i = 1; ; i++)
+                    {
+                        currentChar++;
+                        if (FixItObj.MyFiles[currentCellIndex + i].NewName ==
+                            currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString())
+                        {
+                            continue;
+                        }
+                        else
+                        {
 
-                    NewNameListTable.Items.Refresh();
-                    //NewNameListTable.Focus();
 
-                    var uiElement = e.OriginalSource as UIElement;
-                    uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                    //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                            FixItObj.MyFiles[currentCellIndex + i].NewName = currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString();
+
+                            NewNameListTable.Items.Refresh();
+                            NewNameListTable.Focus();
+
+                            //var uiElement = e.OriginalSource as UIElement;
+                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                            
+                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));   
+                        }
+                        break;
+                    }
+
 
                 }
                 //FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;

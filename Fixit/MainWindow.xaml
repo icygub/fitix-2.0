@@ -28,13 +28,13 @@
         <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="304,36,381,364" Height="54" Width="98"/>
         <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,381,49" IsReadOnly="True" IsHitTestVisible="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding OldName}">
+                <DataGridTextColumn Width="87" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding OldName}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Background" Value="#FFF0F0F0"></Setter>
                             <Setter Property="IsHitTestVisible" Value="False"></Setter>
                         </Style>
-                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -42,7 +42,8 @@
 
         <DataGrid x:Name="NewNameListTable" PreviewKeyDown="NewNameListTable_PreviewKeyDown" SelectionChanged="NewNameListTable_SelectionChanged" HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" Background="White">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NewNameColumn" Width="100" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName}"/>
+                <DataGridTextColumn x:Name="NewNameColumn" Width="87" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName}">
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
