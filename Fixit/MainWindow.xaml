@@ -58,12 +58,12 @@
         <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" Click="ApplyFix_Click" />
         <Button x:Name="Cancel" Content="Cancel" Margin="419,415,265,10" />
 
-        <TextBlock x:Name="ctrlZ_length_block" TextWrapping="Wrap" Margin="86,357,598.2,60.6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Width="99" Padding="5" FontWeight="Bold" FontSize="16"><InlineUIContainer>
+        <TextBlock x:Name="ctrlZ_length_block" TextWrapping="Wrap" Margin="103,353,581.2,64.6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Width="99" Padding="5" FontWeight="Bold" FontSize="16"><InlineUIContainer>
         
             </InlineUIContainer></TextBlock>
-        <Label Content="List length:" Margin="20,357,697.2,60.6"/>
-        <Label Content="Current Index:" Margin="20,397,656.2,9.6"/>
-        <TextBlock x:Name="current_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="146,398,0,0" Height="46" Width="103" Padding="5,5,5,10" FontSize="16"/>
+        <Label Content="CtrlZName" Margin="10,357,697.2,60.6"/>
+        <Label Content="CtrlZIndex" Margin="10,397,666.2,9.6"/>
+        <TextBlock x:Name="current_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="39,237,0,0" Height="46" Width="103" Padding="5,5,5,10" FontSize="16" IsEnabled="False" IsHitTestVisible="False" Visibility="Hidden"/>
 
         <Label Content="CtrlZ List Last Index" Margin="536,301,119.2,113.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="39"/>
         <TextBlock x:Name="last_ctrlz_list_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="691,301,0,0" Height="37" Width="48" Padding="5" FontSize="14" FontWeight="Bold"/>
@@ -71,6 +71,7 @@
         <Label Content="CtrlZ List Last Value" Margin="536,353,119.2,57.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="43"/>
         <TextBlock x:Name="last_ctrlz_list_value_block" TextWrapping="Wrap" Margin="679,362,10.2,59.6" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Width="94" Height="32" FontSize="14"/>
         <TextBlock x:Name="fixit_obj_list_length_block" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Margin="536,407,9.2,4.6" Height="42" Width="238" FontSize="14" FontWeight="Bold"/>
+        <TextBlock x:Name="ctrlz_index_list_length_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="117,394,0,0" Height="39" Width="78" FontSize="16"/>
 
 
     </Grid>
