@@ -19,7 +19,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Controls;
 using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 using System.Windows.Controls.Primitives;
@@ -37,12 +36,118 @@ namespace Fixit {
         string currentCellValue = "";
         int currentCellIndex = 0;
         char currentChar = 'a';
+        int ctrlZCurrentIndex = 0;
+        int lastCurrentCellIndex = 0;
+
+        List<string> ctrlZNameList = new List<string>();
+        List<int> ctrlZIndexList = new List<int>();
 
 
         public MainWindow() {
             InitializeComponent();
             BrushConverter converter = new BrushConverter();
             PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0"); 
+        }
+
+        private void NewNameListTable_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D)) {
+                e.Handled = true; //prevents D from being typed
+                if (!int.TryParse(currentCellValue[currentCellValue.Length - 1].ToString(), out int output)) { //if last is not an int
+                    FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
+                    currentChar = currentCellValue[currentCellValue.Length - 1];
+                    for (int i = 1; ; i++) {
+                        currentChar++;
+                        if (i == 1) {
+                            if(Math.Abs(currentCellIndex - lastCurrentCellIndex) > 1) {
+                                ctrlZCurrentIndex = 0;
+                            }
+                            NewNameListTable_SelectionChanged(NewNameListTable, null); //don't know if it should go here or not
+                            ctrlZNameList.Add(currentCellValue.ToString());
+                            ctrlZCurrentIndex++;
+                            ctrlZ_length_block.Text = ctrlZNameList.Count.ToString();
+                            current_index_block.Text = (currentCellIndex + ctrlZCurrentIndex).ToString();
+                            
+                            //MessageBox.Show("Current: " + currentCellIndex.ToString() + "Ctrzl: " + ctrlZCurrentIndex.ToString());
+
+                        }
+
+                        if (FixItObj.MyFiles[currentCellIndex + i].NewName ==
+                            currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString()) {
+                            continue;
+                        }
+                        else {
+                            FixItObj.MyFiles[currentCellIndex + i].NewName = currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString();
+
+                            NewNameListTable.Items.Refresh();
+                            NewNameListTable.Focus();
+                            //ctrlZCurrentIndex = 0;
+                            //var uiElement = e.OriginalSource as UIElement;
+                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+
+                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));   
+                        }
+                        break;
+                    }
+                }
+                //FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
+            }
+
+            else if (Keyboard.IsKeyDown(Key.Enter)) {
+                ctrlZNameList.Add(currentCellValue);
+                ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
+                current_index_block.Text = currentCellIndex.ToString();
+            }
+
+            else if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.Z)) {
+                string last = ctrlZNameList[ctrlZNameList.Count()];
+                ctrlZNameList.Add(currentCellValue);
+                ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
+                current_index_block.Text = currentCellIndex.ToString();
+
+            }
+
+        }
+
+        private void NewNameListTable_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var item = NewNameListTable.SelectedItem;
+            //if((System.Windows.Controls.DataGrid)sender == NewNameListTable) {
+            //    ctrlZ_length_block.Text = "WHAT";
+
+            //}
+            if (item != null) {
+                lastCurrentCellIndex = currentCellIndex;
+                currentCellValue = (NewNameListTable.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text.ToString();
+                currentCellIndex = NewNameListTable.SelectedIndex;
+
+                MessageBox.Show("Current: " + currentCellIndex.ToString() + " || Last: " + lastCurrentCellIndex.ToString());
+            }
+
+
+            //var row = NewNameListTable.ItemContainerGenerator.ContainerFromIndex(currentCellIndex); //datagridrow
+
+
+
+            //GetCell(NewNameListTable, currentCellIndex, 0).Content = "TEST";
+
+
+            //NewNameListTable.Items[index]
+            //MessageBox.Show(value);
+
+
+            //var dataGrid = sender as System.Windows.Controls.DataGrid;
+            //if(dataGrid == null) {
+            //    return;
+            //}
+            //var index = dataGrid.SelectedIndex;
+
+            //System.Windows.Controls.DataGridCell cell = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as System.Windows.Controls.DataGridCell;
+
+            //if(cell == null) {
+            //    MessageBox.Show((string)cell.Content);
+            //}
+            ////DataGridRow row = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as DataGridRow;
+            ////var item = dataGrid.ItemContainerGenerator.ItemFromContainer(row);
+            ////MessageBox.Show(item);
         }
 
         private void SetFixItItem_Click(object sender, RoutedEventArgs e)
@@ -88,9 +193,10 @@ namespace Fixit {
 
        private void CreateTable(FixFile FixItObj)
        {
-           OldNameListTable.ItemsSource = FixItObj.MyFiles;
-           NewNameListTable.ItemsSource = FixItObj.MyFiles;
-       }
+            OldNameListTable.ItemsSource = FixItObj.MyFiles;
+            NewNameListTable.ItemsSource = FixItObj.MyFiles;
+
+        }
 
 
         private void ChangeTN_Click(object sender, RoutedEventArgs e)
@@ -122,6 +228,7 @@ namespace Fixit {
         private void RefreshOldButton_Click(object sender, RoutedEventArgs e)
         {
             LoadFiles(oldPath, newPath);
+            
         }
 
         private void CloseItem_Click(object sender, RoutedEventArgs e)
@@ -143,78 +250,9 @@ namespace Fixit {
 
         }
 
-        private void NewNameListTable_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
-            if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D)) {
-                //MessageBox.Show("Ctrl+D!!!!!");
-                e.Handled = true; //prevents D from being typed
-                if (! int.TryParse(currentCellValue[currentCellValue.Length - 1].ToString(), out int output)) { //if last is not an int
-                    //MessageBox.Show("we are here");
-                    FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
-                    currentChar = currentCellValue[currentCellValue.Length - 1];
-                    for (int i = 1; ; i++)
-                    {
-                        currentChar++;
-                        if (FixItObj.MyFiles[currentCellIndex + i].NewName ==
-                            currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString())
-                        {
-                            continue;
-                        }
-                        else
-                        {
+        
 
-
-                            FixItObj.MyFiles[currentCellIndex + i].NewName = currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString();
-
-                            NewNameListTable.Items.Refresh();
-                            NewNameListTable.Focus();
-
-                            //var uiElement = e.OriginalSource as UIElement;
-                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                            
-                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));   
-                        }
-                        break;
-                    }
-
-
-                }
-                //FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
-            }
-
-            
-        }
-
-        private void NewNameListTable_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var item = NewNameListTable.SelectedItem;
-            currentCellValue = (NewNameListTable.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text.ToString();
-            currentCellIndex = NewNameListTable.SelectedIndex;
-
-            //var row = NewNameListTable.ItemContainerGenerator.ContainerFromIndex(currentCellIndex); //datagridrow
-
-           
-
-            //GetCell(NewNameListTable, currentCellIndex, 0).Content = "TEST";
-            
-
-            //NewNameListTable.Items[index]
-            //MessageBox.Show(value);
-
-
-            //var dataGrid = sender as System.Windows.Controls.DataGrid;
-            //if(dataGrid == null) {
-            //    return;
-            //}
-            //var index = dataGrid.SelectedIndex;
-
-            //System.Windows.Controls.DataGridCell cell = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as System.Windows.Controls.DataGridCell;
-
-            //if(cell == null) {
-            //    MessageBox.Show((string)cell.Content);
-            //}
-            ////DataGridRow row = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as DataGridRow;
-            ////var item = dataGrid.ItemContainerGenerator.ItemFromContainer(row);
-            ////MessageBox.Show(item);
-        }
+        
 
         public static T GetVisualChild<T>(Visual parent) where T : Visual {
             T child = default(T);

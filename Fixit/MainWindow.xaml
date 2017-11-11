@@ -58,6 +58,14 @@
         <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" Click="ApplyFix_Click" />
         <Button x:Name="Cancel" Content="Cancel" Margin="419,415,265,10" />
 
+        <TextBlock x:Name="ctrlZ_length_block" TextWrapping="Wrap" Margin="86,357,598.2,60.6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Width="99" Padding="5" FontWeight="Bold" FontSize="16"><InlineUIContainer>
+        
+            </InlineUIContainer></TextBlock>
+        <Label Content="List length:" Margin="20,357,697.2,60.6"/>
+        <Label Content="Current Index:" Margin="20,397,656.2,9.6"/>
+        <TextBlock x:Name="current_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="146,398,0,0" Height="46" Width="103" Padding="5,5,5,10" FontSize="16"/>
+
+
 
 
     </Grid>
