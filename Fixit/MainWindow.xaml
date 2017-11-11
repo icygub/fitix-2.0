@@ -65,7 +65,12 @@
         <Label Content="Current Index:" Margin="20,397,656.2,9.6"/>
         <TextBlock x:Name="current_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="146,398,0,0" Height="46" Width="103" Padding="5,5,5,10" FontSize="16"/>
 
+        <Label Content="CtrlZ List Last Index" Margin="536,301,119.2,113.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="39"/>
+        <TextBlock x:Name="last_ctrlz_list_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="691,301,0,0" Height="37" Width="48" Padding="5" FontSize="14" FontWeight="Bold"/>
 
+        <Label Content="CtrlZ List Last Value" Margin="536,353,119.2,57.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="43"/>
+        <TextBlock x:Name="last_ctrlz_list_value_block" TextWrapping="Wrap" Margin="679,362,10.2,59.6" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Width="94" Height="32" FontSize="14"/>
+        <TextBlock x:Name="fixit_obj_list_length_block" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Margin="536,407,9.2,4.6" Height="42" Width="238" FontSize="14" FontWeight="Bold"/>
 
 
     </Grid>

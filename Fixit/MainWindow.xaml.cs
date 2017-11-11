@@ -62,12 +62,13 @@ namespace Fixit {
                                 ctrlZCurrentIndex = 0;
                             }
                             NewNameListTable_SelectionChanged(NewNameListTable, null); //don't know if it should go here or not
-                            ctrlZNameList.Add(currentCellValue.ToString());
+                            ctrlZNameList.Add(currentCellValue);
                             ctrlZCurrentIndex++;
                             ctrlZ_length_block.Text = ctrlZNameList.Count.ToString();
                             current_index_block.Text = (currentCellIndex + ctrlZCurrentIndex).ToString();
-                            
-                            //MessageBox.Show("Current: " + currentCellIndex.ToString() + "Ctrzl: " + ctrlZCurrentIndex.ToString());
+                            //add ctrlZCurrentIndex to ctrlZIndexList here!!!!!!!
+                            ctrlZIndexList.Add(currentCellIndex + ctrlZCurrentIndex);
+                            MessageBox.Show("Current: " + currentCellIndex.ToString() + "Ctrzl: " + ctrlZCurrentIndex.ToString());
 
                         }
 
@@ -94,16 +95,26 @@ namespace Fixit {
 
             else if (Keyboard.IsKeyDown(Key.Enter)) {
                 ctrlZNameList.Add(currentCellValue);
+                //add ctrlZCurrentIndex to ctrlZIndexList here!!!!!!!
+                ctrlZIndexList.Add(currentCellIndex); 
                 ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
                 current_index_block.Text = currentCellIndex.ToString();
             }
 
             else if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.Z)) {
-                string last = ctrlZNameList[ctrlZNameList.Count()];
-                ctrlZNameList.Add(currentCellValue);
-                ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
-                current_index_block.Text = currentCellIndex.ToString();
+                if(ctrlZIndexList.Count() > 0) {
+                    string lastNameValue = ctrlZNameList[ctrlZNameList.Count() - 1];
+                    int lastIndex = ctrlZIndexList[ctrlZIndexList.Count() - 1];
+                    FixItObj.MyFiles[lastIndex].NewName = lastNameValue;
 
+                    //'pop' the last values
+                    ctrlZNameList.RemoveAt(lastIndex);
+                    ctrlZIndexList.RemoveAt(lastIndex);
+
+                    NewNameListTable.Items.Refresh();
+                    NewNameListTable.Focus();
+                }
+                
             }
 
         }
@@ -115,11 +126,17 @@ namespace Fixit {
 
             //}
             if (item != null) {
+                MessageBox.Show("we are here... and shouldn't be");
                 lastCurrentCellIndex = currentCellIndex;
                 currentCellValue = (NewNameListTable.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text.ToString();
                 currentCellIndex = NewNameListTable.SelectedIndex;
+                if(ctrlZIndexList.Count() > 0) {
+                    last_ctrlz_list_index_block.Text = ctrlZIndexList[ctrlZIndexList.Count() - 1].ToString();
+                    last_ctrlz_list_value_block.Text = ctrlZNameList[ctrlZNameList.Count() - 1];
+                    fixit_obj_list_length_block.Text = FixItObj.MyFiles[0].NewName;
+                }
 
-                MessageBox.Show("Current: " + currentCellIndex.ToString() + " || Last: " + lastCurrentCellIndex.ToString());
+                //MessageBox.Show("Current: " + currentCellIndex.ToString() + " || Last: " + lastCurrentCellIndex.ToString());
             }
 
 
