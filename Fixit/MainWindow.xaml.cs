@@ -61,17 +61,6 @@ namespace Fixit {
                             if(Math.Abs(currentCellIndex - lastCurrentCellIndex) > 1) {
                                 ctrlZCurrentIndex = 0;
                             }
-                            //NewNameListTable_SelectionChanged(NewNameListTable, null); WAS HERE
-
-                            //ctrlZNameList.Add(currentCellValue); WAS HERE AS WELL
-
-
-                            //ctrlZCurrentIndex++; WAS HERE
-                            //ctrlZ_length_block.Text = ctrlZNameList.Count.ToString();
-                            //current_index_block.Text = (currentCellIndex + ctrlZCurrentIndex).ToString();
-                            //ctrlZIndexList.Add(currentCellIndex + ctrlZCurrentIndex); WAS HERE
-                            //MessageBox.Show("Current: " + currentCellIndex.ToString() + "Ctrzl: " + ctrlZCurrentIndex.ToString());
-
                         }
 
                         if (FixItObj.MyFiles[currentCellIndex + i].NewName ==
@@ -80,7 +69,6 @@ namespace Fixit {
                         }
                         else {
                             NewNameListTable_SelectionChanged(NewNameListTable, null);
-                            //MessageBox.Show(currentChar.ToString());
                             ctrlZNameList.Add(currentCellValue.Substring(0, currentCellValue.Length - 1));
                             ctrlZCurrentIndex++;
                             ctrlZIndexList.Add(currentCellIndex + ctrlZCurrentIndex);
@@ -89,24 +77,15 @@ namespace Fixit {
 
                             NewNameListTable.Items.Refresh();
                             NewNameListTable.Focus();
-                            //ctrlZCurrentIndex = 0;
-                            //var uiElement = e.OriginalSource as UIElement;
-                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-
-                            //uiElement.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));   
                         }
                         break;
                     }
                 }
-                //FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
             }
 
             else if (Keyboard.IsKeyDown(Key.Enter)) {
                 ctrlZNameList.Add(currentCellValue);
-                //add ctrlZCurrentIndex to ctrlZIndexList here!!!!!!!
                 ctrlZIndexList.Add(currentCellIndex); 
-                //ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
-                //current_index_block.Text = currentCellIndex.ToString();
             }
 
             else if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.Z)) {
@@ -114,97 +93,45 @@ namespace Fixit {
                     string lastNameValue = ctrlZNameList[ctrlZNameList.Count() - 1];
                     int lastIndexValue = ctrlZIndexList[ctrlZIndexList.Count() - 1];
                     FixItObj.MyFiles[lastIndexValue].NewName = lastNameValue;
-                    //last_ctrlz_list_index_block.Text = lastIndexValue.ToString();
-                    //MessageBox.Show(lastIndexValue.ToString());
                     //'pop' the last values
                     ctrlZNameList.RemoveAt(ctrlZNameList.Count()-1);
                     ctrlZIndexList.RemoveAt(ctrlZIndexList.Count()-1);
 
                     NewNameListTable.Items.Refresh();
                     NewNameListTable.Focus();
-                }
-                
+                }         
             }
-
         }
 
         private void NewNameListTable_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var item = NewNameListTable.SelectedItem;
-            //if((System.Windows.Controls.DataGrid)sender == NewNameListTable) {
-            //    ctrlZ_length_block.Text = "WHAT";
 
-            //}
-            if (item != null) {
-                
+            if (item != null) {          
                 lastCurrentCellIndex = currentCellIndex;
                 currentCellValue = (NewNameListTable.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text.ToString();
                 currentCellIndex = NewNameListTable.SelectedIndex;
-
-                //ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
-                //ctrlz_index_list_length_block.Text = ctrlZIndexList.Count().ToString();
-                //MessageBox.Show("we are here... and shouldn't be");
-                //if (ctrlZIndexList.Count() > 0 && ctrlZNameList.Count() > 0) {
-                    //last_ctrlz_list_index_block.Text = ctrlZIndexList[ctrlZIndexList.Count() - 1].ToString();
-                    //last_ctrlz_list_value_block.Text = ctrlZNameList[ctrlZNameList.Count() - 1];
-                    //fixit_obj_list_length_block.Text = FixItObj.MyFiles[0].NewName;
-                //}
-
-                //MessageBox.Show("Current: " + currentCellIndex.ToString() + " || Last: " + lastCurrentCellIndex.ToString());
             }
-
-
-            //var row = NewNameListTable.ItemContainerGenerator.ContainerFromIndex(currentCellIndex); //datagridrow
-
-
-
-            //GetCell(NewNameListTable, currentCellIndex, 0).Content = "TEST";
-
-
-            //NewNameListTable.Items[index]
-            //MessageBox.Show(value);
-
-
-            //var dataGrid = sender as System.Windows.Controls.DataGrid;
-            //if(dataGrid == null) {
-            //    return;
-            //}
-            //var index = dataGrid.SelectedIndex;
-
-            //System.Windows.Controls.DataGridCell cell = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as System.Windows.Controls.DataGridCell;
-
-            //if(cell == null) {
-            //    MessageBox.Show((string)cell.Content);
-            //}
-            ////DataGridRow row = dataGrid.ItemContainerGenerator.ContainerFromIndex(index) as DataGridRow;
-            ////var item = dataGrid.ItemContainerGenerator.ItemFromContainer(row);
-            ////MessageBox.Show(item);
         }
 
-        private void SetFixItItem_Click(object sender, RoutedEventArgs e)
-        {
-           
+        private void SetFixItItem_Click(object sender, RoutedEventArgs e) {        
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = config.AppSettings.Settings["FixItPath"].Value;
             fbd.ShowNewFolderButton = false;
             fbd.Description = "Select Path:";
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 MessageBox.Show("Fixit Folder set successfully.", "Confirmation", MessageBoxButton.OK);
                 oldPath = fbd.SelectedPath;
                 config.Save(ConfigurationSaveMode.Modified);
                 LoadFiles(oldPath, newPath);
-
             }
         }
 
-        private void SetAuditItem_Click(object sender, RoutedEventArgs e)
-        {
+        private void SetAuditItem_Click(object sender, RoutedEventArgs e) {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = config.AppSettings.Settings["AuditPath"].Value;
             fbd.ShowNewFolderButton = false;
             fbd.Description = "Select Path:";
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 MessageBox.Show("Audit Folder set successfully.", "Confirmation", MessageBoxButton.OK);
                 newPath = fbd.SelectedPath;
                 config.Save(ConfigurationSaveMode.Modified);
@@ -213,76 +140,57 @@ namespace Fixit {
         }
 
 
-        private void LoadFiles(string oldPath, string newPath)
-        {
+        private void LoadFiles(string oldPath, string newPath) {
             FixItObj = new FixFile(Directory.GetFiles(oldPath), oldPath, newPath);
             ExtensionBox.Text = FixItObj.Extension;
             PrefixBox.Text = FixItObj.TN;
             CreateTable(FixItObj);
         }
 
-       private void CreateTable(FixFile FixItObj)
-       {
+       private void CreateTable(FixFile FixItObj) {
             OldNameListTable.ItemsSource = FixItObj.MyFiles;
             NewNameListTable.ItemsSource = FixItObj.MyFiles;
-
         }
 
-
-        private void ChangeTN_Click(object sender, RoutedEventArgs e)
-        {
+        private void ChangeTN_Click(object sender, RoutedEventArgs e) {
             PrefixBox.IsReadOnly = !PrefixBox.IsReadOnly;
             PrefixBox.IsHitTestVisible = !PrefixBox.IsHitTestVisible;
-            if(PrefixBox.IsReadOnly) {
+            if (PrefixBox.IsReadOnly) {
                 BrushConverter converter = new BrushConverter();
                 PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
-                if (PrefixBox.Text != FixItObj.NewTN)
-                {
+                if (PrefixBox.Text != FixItObj.NewTN) {
                     FixItObj.NewTN = PrefixBox.Text;
                     MessageBox.Show("TN changed successfully", "Confirmation", MessageBoxButton.OK);
                 }
             }
             else {
                 PrefixBox.Background = Brushes.White;
-
-            }
-            
+            }        
         }
 
-        private void ResetNewButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void ResetNewButton_Click(object sender, RoutedEventArgs e) {
             FixItObj.ResetNew(FixItObj);
             NewNameListTable.Items.Refresh();
         }
 
-        private void RefreshOldButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void RefreshOldButton_Click(object sender, RoutedEventArgs e) {
             LoadFiles(oldPath, newPath);
             
         }
 
-        private void CloseItem_Click(object sender, RoutedEventArgs e)
-        {
+        private void CloseItem_Click(object sender, RoutedEventArgs e) {
             Environment.Exit(0);
         }
 
-        private void ApplyFix_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
+        private void ApplyFix_Click(object sender, RoutedEventArgs e) {
+            try {
                 Renamer.RenameFile(FixItObj);
                 MessageBox.Show("Files renamed successfully.", "Confirmation", MessageBoxButton.OK);
             }
-            catch
-            {
+            catch {
                 MessageBox.Show("Something wrong happened. Please, contact your administrator.", "Error", MessageBoxButton.OK);
             }
-
-        }
-
-        
-
-        
+        }     
 
         public static T GetVisualChild<T>(Visual parent) where T : Visual {
             T child = default(T);
@@ -303,18 +211,15 @@ namespace Fixit {
         public static DataGridRow GetSelectedRow(System.Windows.Controls.DataGrid grid) {
             return (DataGridRow)grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem);
         }
+
         public static DataGridRow GetRow(System.Windows.Controls.DataGrid grid, int index) {
             DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(index);
             if (row == null) {
-                try {
-                    
+                try {                 
                     grid.UpdateLayout();
                     grid.ScrollIntoView(grid.Items[index]);
                     row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(index);
-                } catch {
-
-                }
-                
+                } catch {}              
             }
             return row;
         }
