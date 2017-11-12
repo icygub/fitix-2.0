@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fixit"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
-        Title="Fixit Numbering" Height="483.098" Width="789.225">
+        ResizeMode="CanResizeWithGrip"
+        Title="Fixit Numbering" Height="501.768" Width="664.755">
     <Grid>
         <Grid.Background>
             <ImageBrush/>
@@ -21,12 +21,12 @@
             </Menu>
         </DockPanel>
 
-        <Label Content="TN" Margin="121,59,615,359" FontSize="16"/>
-        <TextBox x:Name="PrefixBox" TextWrapping="Wrap" IsReadOnly="True" Margin="20,95,503,327" IsHitTestVisible="False"/>
-        <Button x:Name="ChangeTN" Content="Change TN" Margin="103,140,598,283" Click="ChangeTN_Click" />
+        <Label Content="TN" Margin="130,55,481.4,381" FontSize="16" Width="47" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox x:Name="PrefixBox" TextWrapping="Wrap" IsReadOnly="True" Margin="20,104,369.4,326" IsHitTestVisible="False" FontSize="18" TextAlignment="Center" BorderThickness="2"/>
+        <Button x:Name="ChangeTN" Content="Change TN" Margin="106,159,447.4,279" Click="ChangeTN_Click" FontSize="14" />
 
-        <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="304,36,381,364" Height="54" Width="98"/>
-        <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,95,381,49" IsReadOnly="True" IsHitTestVisible="False">
+        <Label Content="Old" FontSize="16" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="304,45,256.4,373" Height="54" Width="98"/>
+        <DataGrid  x:Name="OldNameListTable"  HeadersVisibility="None" AutoGenerateColumns="False" Margin="304,104,256.4,53" IsReadOnly="True" IsHitTestVisible="False" FontSize="16" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" BorderBrush="Gray" BorderThickness="2" Width="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="87" Header="Old" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" Binding="{Binding OldName}">
                     <DataGridTextColumn.ElementStyle>
@@ -38,40 +38,26 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Width="99" Height="59" Content="New" FontSize="16" Margin="419,36,265,359" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label Width="99" Height="59" Content="New" FontSize="16" Margin="419,40,140.4,373" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
 
-        <DataGrid x:Name="NewNameListTable" PreviewKeyDown="NewNameListTable_PreviewKeyDown" SelectionChanged="NewNameListTable_SelectionChanged" HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,95,265,49" Background="White">
+        <DataGrid x:Name="NewNameListTable" VerticalScrollBarVisibility="Hidden" PreviewKeyDown="NewNameListTable_PreviewKeyDown" SelectionChanged="NewNameListTable_SelectionChanged" HeadersVisibility="None" AutoGenerateColumns="False" Margin="419,104,140.4,53" Background="White" FontSize="16" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" FontWeight="Medium" BorderBrush="Gray" BorderThickness="2">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NewNameColumn" Width="87" Header="New Name" CanUserReorder="False" CanUserSort="False" Binding="{Binding NewName}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="ExtensionBox" IsReadOnly="True" TextWrapping="Wrap" Margin="603,95,130,327" IsHitTestVisible="false" >
+        <TextBox x:Name="ExtensionBox" IsReadOnly="True" TextWrapping="Wrap" Margin="534,104,58.4,326" IsHitTestVisible="false" FontSize="18" BorderThickness="2" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
             <TextBox.Background>
                 <ImageBrush/>
             </TextBox.Background>
         </TextBox>
 
-        <Button x:Name="RefreshOldButton" Content="Refresh Old" Margin="200,225,503,200" Click="RefreshOldButton_Click" />
-        <Button x:Name="ResetNewButton" Content="Reset New" Margin="587,225,119,200" Click="ResetNewButton_Click" />
-        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,415,381,10" Click="ApplyFix_Click" />
-        <Button x:Name="Cancel" Content="Cancel" Margin="419,415,265,10" />
-
-        <TextBlock x:Name="ctrlZ_length_block" TextWrapping="Wrap" Margin="103,353,581.2,64.6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Width="99" Padding="5" FontWeight="Bold" FontSize="16"><InlineUIContainer>
-        
-            </InlineUIContainer></TextBlock>
-        <Label Content="CtrlZName" Margin="10,357,697.2,60.6"/>
-        <Label Content="CtrlZIndex" Margin="10,397,666.2,9.6"/>
-        <TextBlock x:Name="current_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="39,237,0,0" Height="46" Width="103" Padding="5,5,5,10" FontSize="16" IsEnabled="False" IsHitTestVisible="False" Visibility="Hidden"/>
-
-        <Label Content="CtrlZ List Last Index" Margin="536,301,119.2,113.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="39"/>
+        <Button x:Name="RefreshOldButton" Content="Refresh Old" Margin="186,226,369.4,210" Click="RefreshOldButton_Click" FontSize="14" Padding="2" />
+        <Button x:Name="ResetNewButton" Content="Reset New" Margin="534,226,21.4,210" Click="ResetNewButton_Click" FontSize="14" />
+        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,432,256.4,10" Click="ApplyFix_Click" FontSize="14" />
+        <Button x:Name="Cancel" Content="Cancel" Margin="419,432,140.4,10" FontSize="14" />
         <TextBlock x:Name="last_ctrlz_list_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="691,301,0,0" Height="37" Width="48" Padding="5" FontSize="14" FontWeight="Bold"/>
-
-        <Label Content="CtrlZ List Last Value" Margin="536,353,119.2,57.6" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="128" Height="43"/>
-        <TextBlock x:Name="last_ctrlz_list_value_block" TextWrapping="Wrap" Margin="679,362,10.2,59.6" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Width="94" Height="32" FontSize="14"/>
-        <TextBlock x:Name="fixit_obj_list_length_block" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Margin="536,407,9.2,4.6" Height="42" Width="238" FontSize="14" FontWeight="Bold"/>
-        <TextBlock x:Name="ctrlz_index_list_length_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="117,394,0,0" Height="39" Width="78" FontSize="16"/>
 
 
     </Grid>

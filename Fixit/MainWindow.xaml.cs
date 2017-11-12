@@ -143,11 +143,11 @@ namespace Fixit {
                 //ctrlZ_length_block.Text = ctrlZNameList.Count().ToString();
                 //ctrlz_index_list_length_block.Text = ctrlZIndexList.Count().ToString();
                 //MessageBox.Show("we are here... and shouldn't be");
-                if (ctrlZIndexList.Count() > 0 && ctrlZNameList.Count() > 0) {
+                //if (ctrlZIndexList.Count() > 0 && ctrlZNameList.Count() > 0) {
                     //last_ctrlz_list_index_block.Text = ctrlZIndexList[ctrlZIndexList.Count() - 1].ToString();
-                    last_ctrlz_list_value_block.Text = ctrlZNameList[ctrlZNameList.Count() - 1];
+                    //last_ctrlz_list_value_block.Text = ctrlZNameList[ctrlZNameList.Count() - 1];
                     //fixit_obj_list_length_block.Text = FixItObj.MyFiles[0].NewName;
-                }
+                //}
 
                 //MessageBox.Show("Current: " + currentCellIndex.ToString() + " || Last: " + lastCurrentCellIndex.ToString());
             }
