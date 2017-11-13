@@ -50,9 +50,11 @@ namespace Fixit {
         }
 
         private void NewNameListTable_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
+            // Handles the Ctrl+D feature
             if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D)) {
                 e.Handled = true; //prevents D from being typed
-                if (!int.TryParse(currentCellValue[currentCellValue.Length - 1].ToString(), out int output)) { //if last is not an int
+                //if last is not an int, a.k.a if it is a letter
+                if (!int.TryParse(currentCellValue[currentCellValue.Length - 1].ToString(), out int output)) { 
                     FixItObj.MyFiles[currentCellIndex].NewName = currentCellValue;
                     currentChar = currentCellValue[currentCellValue.Length - 1];
                     for (int i = 1; ; i++) {
@@ -67,7 +69,7 @@ namespace Fixit {
                             currentCellValue.Substring(0, currentCellValue.Length - 1) + currentChar.ToString()) {
                             continue;
                         }
-                        else {
+                        else { //where the actual Ctrl+D action takes place
                             NewNameListTable_SelectionChanged(NewNameListTable, null);
                             ctrlZNameList.Add(currentCellValue.Substring(0, currentCellValue.Length - 1));
                             ctrlZCurrentIndex++;
@@ -88,6 +90,7 @@ namespace Fixit {
                 ctrlZIndexList.Add(currentCellIndex); 
             }
 
+            // handles the Ctrl+Z undo feature
             else if (Keyboard.IsKeyDown(Key.RightCtrl) || Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.Z)) {
                 if(ctrlZIndexList.Count() > 0 && ctrlZNameList.Count() > 0) {
                     string lastNameValue = ctrlZNameList[ctrlZNameList.Count() - 1];
@@ -103,6 +106,8 @@ namespace Fixit {
             }
         }
 
+        // trigger when a different cell is clicked on, or user hits
+        // enter, Ctrl+D, Ctrl+Z
         private void NewNameListTable_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var item = NewNameListTable.SelectedItem;
 
@@ -113,6 +118,7 @@ namespace Fixit {
             }
         }
 
+        // allows users to set the path to the fitix folder
         private void SetFixItItem_Click(object sender, RoutedEventArgs e) {        
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = config.AppSettings.Settings["FixItPath"].Value;
@@ -126,6 +132,7 @@ namespace Fixit {
             }
         }
 
+        // allows users to set the path to the audit folder
         private void SetAuditItem_Click(object sender, RoutedEventArgs e) {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = config.AppSettings.Settings["AuditPath"].Value;
@@ -152,18 +159,21 @@ namespace Fixit {
             NewNameListTable.ItemsSource = FixItObj.MyFiles;
         }
 
+        // enables/disables the PrefixBox where the TN is located
         private void ChangeTN_Click(object sender, RoutedEventArgs e) {
             PrefixBox.IsReadOnly = !PrefixBox.IsReadOnly;
             PrefixBox.IsHitTestVisible = !PrefixBox.IsHitTestVisible;
             if (PrefixBox.IsReadOnly) {
+                //If here, then PrefixBox is disabled
                 BrushConverter converter = new BrushConverter();
                 PrefixBox.Background = (Brush)converter.ConvertFrom("#f0f0f0");
                 if (PrefixBox.Text != FixItObj.NewTN) {
                     FixItObj.NewTN = PrefixBox.Text;
-                    MessageBox.Show("TN changed successfully", "Confirmation", MessageBoxButton.OK);
+                    MessageBox.Show("TN changed successfully", "Confirmation", MessageBoxButton.OK);          
                 }
             }
-            else {
+            else { 
+                //PrefixBox is enabled
                 PrefixBox.Background = Brushes.White;
             }        
         }
