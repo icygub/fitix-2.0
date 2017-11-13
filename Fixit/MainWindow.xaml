@@ -55,8 +55,7 @@
 
         <Button x:Name="RefreshOldButton" Content="Refresh Old" Margin="186,226,369.4,210" Click="RefreshOldButton_Click" FontSize="14" Padding="2" />
         <Button x:Name="ResetNewButton" Content="Reset New" Margin="534,226,21.4,210" Click="ResetNewButton_Click" FontSize="14" />
-        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,432,256.4,10" Click="ApplyFix_Click" FontSize="14" />
-        <Button x:Name="Cancel" Content="Cancel" Margin="419,432,140.4,10" FontSize="14" />
+        <Button x:Name="ApplyFix" Content="Apply Fixits" Margin="304,432,140,10" Click="ApplyFix_Click" FontSize="14" />
         <TextBlock x:Name="last_ctrlz_list_index_block" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="691,301,0,0" Height="37" Width="48" Padding="5" FontSize="14" FontWeight="Bold"/>
 
 
